@@ -1,0 +1,20 @@
+{
+  "name": "v-lazy-component",
+  "version": "1.0.0",
+  "description": "Vue component render when visible.",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue lazy component"
+  ],
+  "author": "selimdoyranli",
+  "contributors": [
+    "Selim Doyranlı <selim@radkod.com> (https://selimdoyranli.com)"
+  ],
+  "bugs": "selim@radkod.com",
+  "homepage": "https://www.radkod.com",
+  "private": false,
+  "license": "ISC"
+}
