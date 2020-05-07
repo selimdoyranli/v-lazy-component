@@ -21,7 +21,7 @@ Vue component render when visible. Uses Intersection Observer API.
   
 #### Usage
 
-    <lazy-component  wrapper-tag="section" @intersected="optionalDispatch">
+    <lazy-component wrapper-tag="section" @intersected="optionalDispatch">
 	    <YourComponent />
 	    <span slot="placeholder">Loading..</span> <!-- Optional -->
     </lazy-component>
