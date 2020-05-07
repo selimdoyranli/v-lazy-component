@@ -27,22 +27,31 @@ Vue component render when visible. Uses Intersection Observer API.
     </lazy-component>
 
 #### Props
-|wrapper-tag|default: div  (optional) |
+
+|Name|Type|Default 
+|--|--|--|
+|`wrapper-tag` |String | div
+|`root-margin` |String | 0px 0px 0px 0px
+|`threshold` |Number, Array| 0
+[See Intersection Observer API doc](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)
+
+#### Slots
+|`placeholder`| Content that is loaded as a placeholder until it comes into view  |
 |--|--|
 
 #### Events
-|intersected| dispatch event when visible |
+|`intersected`| dispatch event when visible |
 |--|--|
 
 #### CSS Selectors
 
     .v-lazy-component.loading {
-    filter: blur(20px);
+	    filter: blur(20px);
     }
     
     .v-lazy-component.loaded {
-    filter: blur(0);
-    transition: filter 1s;
+	    filter: blur(0);
+	    transition: filter 1s;
     }
 
 
