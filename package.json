@@ -1,6 +1,6 @@
 {
   "name": "v-lazy-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vue component render when visible.",
   "main": "./src/index.js",
   "scripts": {
@@ -15,6 +15,10 @@
   ],
   "bugs": "selim@radkod.com",
   "homepage": "https://www.radkod.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RadKod/v-lazy-component"
+  },
   "private": false,
   "license": "ISC"
 }
