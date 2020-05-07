@@ -7,6 +7,12 @@
 
 Vue component render when visible. Uses Intersection Observer API. 
 
+Check demo: [https://v-lazy-component.now.sh](https://v-lazy-component.now.sh)
+
+NPM: [https://www.npmjs.com/package/v-lazy-component](https://www.npmjs.com/package/v-lazy-component)
+
+Github: [https://github.com/RadKod/v-lazy-component](https://github.com/RadKod/v-lazy-component)
+
 #### Installation
 
     npm install v-lazy-component --save
