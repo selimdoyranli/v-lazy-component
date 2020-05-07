@@ -1,6 +1,6 @@
 {
   "name": "v-lazy-component",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue component render when visible.",
   "main": "./src/index.js",
   "scripts": {
