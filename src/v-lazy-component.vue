@@ -36,11 +36,38 @@ export default {
       type: [Number, Array],
       required: false,
       default: 0
-    }
+    },
+    once: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    root: {
+      required: false,
+      validator: function (el) {
+        function isNode(o){
+          return (
+            typeof Node === "object" ? o instanceof Node :
+              o && typeof o === "object" && typeof o.nodeType === "number" && typeof o.nodeName==="string"
+          );
+        };
+        function isElement(o){
+          return (
+            typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
+              o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
+          );
+        };
+        return isElement(el) || isNode(el);
+      },
+      default: function () {
+        return undefined;
+      }
+    },
   },
   data() {
     return {
       isIntersected: false,
+      isLeaving: false,
       observer: null
     };
   },
@@ -48,6 +75,11 @@ export default {
     isIntersected(value) {
       if (value) {
         this.$emit("intersected", this.$el);
+      }
+    },
+    isLeaving(value) {
+      if (value) {
+        this.$emit("leaved", this.$el);
       }
     }
   },
@@ -63,14 +95,15 @@ export default {
   },
   methods: {
     observe() {
-      const { rootMargin, threshold } = this;
-      const config = { root: undefined, rootMargin, threshold };
+      const { rootMargin, threshold, root } = this;
+      const config = { root, rootMargin, threshold };
       this.observer = new IntersectionObserver(this.onIntersection, config);
       this.observer.observe(this.$el);
     },
     onIntersection(entries) {
       this.isIntersected = entries.some(entry => entry.intersectionRatio > 0);
-      if (this.isIntersected) {
+      this.isLeaving = entries.some(entry => !entry.isIntersecting);
+      if (this.isIntersected && this.once) {
         this.unobserve();
       }
     },
