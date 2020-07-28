@@ -37,6 +37,8 @@ Github: [https://github.com/RadKod/v-lazy-component](https://github.com/RadKod/v
 |Name|Type|Default 
 |--|--|--|
 |`wrapper-tag` |String | div
+|`once` |Boolean | true
+|`root` |Element | undefined
 |`root-margin` |String | 0px 0px 0px 0px
 |`threshold` |Number, Array| 0
 [See Intersection Observer API doc](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)
@@ -46,8 +48,10 @@ Github: [https://github.com/RadKod/v-lazy-component](https://github.com/RadKod/v
 |--|--|
 
 #### Events
-|`intersected`| dispatch event when visible |
+|Name|Description| 
 |--|--|
+|`intersected`| dispatch event when visible|
+|`leaved`| dispatch event when not visible (only if prop once=false)|
 
 #### CSS Selectors
 
