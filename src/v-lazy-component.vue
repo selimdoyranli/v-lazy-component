@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'LazyComponent',
   props: {
     wrapperTag: {
       type: String,
