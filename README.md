@@ -39,6 +39,17 @@ export default {
   }
 }
 ```
+#### Via CDN
+```js
+<script src="https://unpkg.com/v-lazy-component"></script>
+
+<script>
+new  Vue({
+  el: "#app"
+});
+Vue.use(LazyComponent);
+</script>
+```
 #### Usage
 
 ```html
