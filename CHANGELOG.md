@@ -8,7 +8,7 @@
 - improved demo
 - improved doc
 
-## 1.0.0 - 1.0.6
+## 1.0.0 - 1.0.5
 
 - Doc & demo updates etc.
 - First release
