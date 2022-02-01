@@ -1,15 +1,15 @@
 <template>
   <component
-    :is="wrapperTag"
-    :class="['v-lazy-component', {'loading': !isIntersected, 'loaded': isIntersected}]"
-    :style="{
+      :is="wrapperTag"
+      :class="['v-lazy-component', {'loading': !isIntersected, 'loaded': isIntersected}]"
+      :style="{
       minWidth: '1px',
       minHeight: '1px',
     }"
   >
-    <slot v-if="isIntersected" />
+    <slot v-if="isIntersected"/>
     <!-- Content that is loaded as a placeholder until it comes into view -->
-    <slot v-if="!isIntersected" name="placeholder" />
+    <slot v-if="!isIntersected" name="placeholder"/>
   </component>
 </template>
 
@@ -37,6 +37,12 @@ export default {
       type: [Number, Array],
       required: false,
       default: 0
+    },
+
+    forceIntercepted: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -46,6 +52,11 @@ export default {
     };
   },
   watch: {
+    forceIntercepted(value) {
+      if (value) {
+        this.isIntersected = true;
+      }
+    },
     isIntersected(value) {
       if (value) {
         this.$emit("intersected", this.$el);
@@ -64,8 +75,8 @@ export default {
   },
   methods: {
     observe() {
-      const { rootMargin, threshold } = this;
-      const config = { root: undefined, rootMargin, threshold };
+      const {rootMargin, threshold} = this;
+      const config = {root: undefined, rootMargin, threshold};
       this.observer = new IntersectionObserver(this.onIntersection, config);
       this.observer.observe(this.$el);
     },
