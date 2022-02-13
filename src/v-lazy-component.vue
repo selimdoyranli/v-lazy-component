@@ -1,15 +1,21 @@
 <template>
   <component
-    :is="wrapperTag"
-    :class="['v-lazy-component', {'loading': !isIntersected, 'loaded': isIntersected}]"
+    :is="state.wrapperTag"
+    :class="[
+      'v-lazy-component',
+      {
+        'v-lazy-component--loading': !state.isIntersected,
+        'v-lazy-component--loaded': state.isIntersected,
+      },
+    ]"
     :style="{
       minWidth: '1px',
       minHeight: '1px',
     }"
   >
-    <slot v-if="isIntersected" />
+    <slot v-if="state.isIntersected" />
     <!-- Content that is loaded as a placeholder until it comes into view -->
-    <slot v-if="!isIntersected" name="placeholder" />
+    <slot v-if="!state.isIntersected" name="placeholder" />
   </component>
 </template>
 
@@ -20,7 +26,17 @@ export default {
     wrapperTag: {
       type: String,
       required: false,
-      default: "div"
+      default: 'div',
+    },
+    isIntersected: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    idle: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     /**
      * See IntersectionOberserver rootMargin [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)
@@ -28,7 +44,7 @@ export default {
     rootMargin: {
       type: String,
       required: false,
-      default: "0px 0px 0px 0px"
+      default: '0px 0px 0px 0px',
     },
     /**
      * See IntersectionOberserver treshold [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)
@@ -36,50 +52,74 @@ export default {
     threshold: {
       type: [Number, Array],
       required: false,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data() {
     return {
-      isIntersected: false,
-      observer: null
+      state: {
+        wrapperTag: this.wrapperTag,
+        isIntersected: this.isIntersected,
+        idle: this.idle,
+        rootMargin: this.rootMargin,
+        threshold: this.threshold,
+        observer: null,
+      },
     };
   },
   watch: {
     isIntersected(value) {
       if (value) {
-        this.$emit("intersected", this.$el);
+        this.state.isIntersected = true;
       }
-    }
+    },
+    'state.isIntersected'(value) {
+      if (value) {
+        this.$emit('intersected', this.$el);
+      }
+    },
   },
   mounted() {
-    if ("IntersectionObserver" in window) {
-      this.observe();
+    if ('IntersectionObserver' in window) {
+      if (!this.state.isIntersected && !this.state.idle) {
+        this.observe();
+      }
     } else {
-      this.isIntersected = true;
+      this.state.isIntersected = true;
+    }
+
+    if(this.state.isIntersected) {
+      this.$emit('intersected', this.$el);
     }
   },
   beforeDestroy() {
-    this.unobserve();
+    if (!this.state.isIntersected && !this.state.idle) {
+      this.unobserve();
+    }
   },
   methods: {
     observe() {
-      const { rootMargin, threshold } = this;
+      const { rootMargin, threshold } = this.state;
       const config = { root: undefined, rootMargin, threshold };
-      this.observer = new IntersectionObserver(this.onIntersection, config);
-      this.observer.observe(this.$el);
+      this.state.observer = new IntersectionObserver(
+        this.onIntersection,
+        config
+      );
+      this.state.observer.observe(this.$el);
     },
     onIntersection(entries) {
-      this.isIntersected = entries.some(entry => entry.intersectionRatio > 0);
-      if (this.isIntersected) {
+      this.state.isIntersected = entries.some(
+        (entry) => entry.intersectionRatio > 0
+      );
+      if (this.state.isIntersected) {
         this.unobserve();
       }
     },
     unobserve() {
-      if ("IntersectionObserver" in window) {
-        this.observer.unobserve(this.$el);
+      if ('IntersectionObserver' in window) {
+        this.state.observer.unobserve(this.$el);
       }
-    }
-  }
+    },
+  },
 };
 </script>

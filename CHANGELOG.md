@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.1.0
+
+- Force render feature
+- Idle feature
+- CSS BEM
+
 ## 2.0.0
 
 - local register support

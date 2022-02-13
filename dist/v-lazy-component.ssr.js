@@ -70,13 +70,29 @@ function _nonIterableRest() {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var script = {
   name: 'LazyComponent',
   props: {
     wrapperTag: {
       type: String,
       required: false,
-      default: "div"
+      default: 'div'
+    },
+    isIntersected: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    idle: {
+      type: Boolean,
+      required: false,
+      default: false
     },
 
     /**
@@ -85,7 +101,7 @@ var script = {
     rootMargin: {
       type: String,
       required: false,
-      default: "0px 0px 0px 0px"
+      default: '0px 0px 0px 0px'
     },
 
     /**
@@ -99,51 +115,71 @@ var script = {
   },
   data: function data() {
     return {
-      isIntersected: false,
-      observer: null
+      state: {
+        wrapperTag: this.wrapperTag,
+        isIntersected: this.isIntersected,
+        idle: this.idle,
+        rootMargin: this.rootMargin,
+        threshold: this.threshold,
+        observer: null
+      }
     };
   },
   watch: {
     isIntersected: function isIntersected(value) {
       if (value) {
-        this.$emit("intersected", this.$el);
+        this.state.isIntersected = true;
+      }
+    },
+    'state.isIntersected': function stateIsIntersected(value) {
+      if (value) {
+        this.$emit('intersected', this.$el);
       }
     }
   },
   mounted: function mounted() {
-    if ("IntersectionObserver" in window) {
-      this.observe();
+    if ('IntersectionObserver' in window) {
+      if (!this.state.isIntersected && !this.state.idle) {
+        this.observe();
+      }
     } else {
-      this.isIntersected = true;
+      this.state.isIntersected = true;
+    }
+
+    if (this.state.isIntersected) {
+      this.$emit('intersected', this.$el);
     }
   },
   beforeDestroy: function beforeDestroy() {
-    this.unobserve();
+    if (!this.state.isIntersected && !this.state.idle) {
+      this.unobserve();
+    }
   },
   methods: {
     observe: function observe() {
-      var rootMargin = this.rootMargin,
-          threshold = this.threshold;
+      var _this$state = this.state,
+          rootMargin = _this$state.rootMargin,
+          threshold = _this$state.threshold;
       var config = {
         root: undefined,
         rootMargin: rootMargin,
         threshold: threshold
       };
-      this.observer = new IntersectionObserver(this.onIntersection, config);
-      this.observer.observe(this.$el);
+      this.state.observer = new IntersectionObserver(this.onIntersection, config);
+      this.state.observer.observe(this.$el);
     },
     onIntersection: function onIntersection(entries) {
-      this.isIntersected = entries.some(function (entry) {
+      this.state.isIntersected = entries.some(function (entry) {
         return entry.intersectionRatio > 0;
       });
 
-      if (this.isIntersected) {
+      if (this.state.isIntersected) {
         this.unobserve();
       }
     },
     unobserve: function unobserve() {
-      if ("IntersectionObserver" in window) {
-        this.observer.unobserve(this.$el);
+      if ('IntersectionObserver' in window) {
+        this.state.observer.unobserve(this.$el);
       }
     }
   }
@@ -231,17 +267,17 @@ var __vue_render__ = function __vue_render__() {
 
   var _c = _vm._self._c || _h;
 
-  return _c(_vm.wrapperTag, {
+  return _c(_vm.state.wrapperTag, {
     tag: "component",
     class: ['v-lazy-component', {
-      'loading': !_vm.isIntersected,
-      'loaded': _vm.isIntersected
+      'v-lazy-component--loading': !_vm.state.isIntersected,
+      'v-lazy-component--loaded': _vm.state.isIntersected
     }],
     style: {
       minWidth: '1px',
       minHeight: '1px'
     }
-  }, [_vm.isIntersected ? _vm._t("default") : _vm._e(), _vm._v(" "), !_vm.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
+  }, [_vm.state.isIntersected ? _vm._t("default") : _vm._e(), _vm._v(" "), !_vm.state.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
 };
 
 var __vue_staticRenderFns__ = [];
@@ -253,7 +289,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-f346a978";
+var __vue_module_identifier__ = "data-v-9b886db0";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

@@ -13,13 +13,29 @@
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var script = {
   name: 'LazyComponent',
   props: {
     wrapperTag: {
       type: String,
       required: false,
-      default: "div"
+      default: 'div'
+    },
+    isIntersected: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    idle: {
+      type: Boolean,
+      required: false,
+      default: false
     },
 
     /**
@@ -28,7 +44,7 @@ var script = {
     rootMargin: {
       type: String,
       required: false,
-      default: "0px 0px 0px 0px"
+      default: '0px 0px 0px 0px'
     },
 
     /**
@@ -43,30 +59,50 @@ var script = {
 
   data() {
     return {
-      isIntersected: false,
-      observer: null
+      state: {
+        wrapperTag: this.wrapperTag,
+        isIntersected: this.isIntersected,
+        idle: this.idle,
+        rootMargin: this.rootMargin,
+        threshold: this.threshold,
+        observer: null
+      }
     };
   },
 
   watch: {
     isIntersected(value) {
       if (value) {
-        this.$emit("intersected", this.$el);
+        this.state.isIntersected = true;
+      }
+    },
+
+    'state.isIntersected'(value) {
+      if (value) {
+        this.$emit('intersected', this.$el);
       }
     }
 
   },
 
   mounted() {
-    if ("IntersectionObserver" in window) {
-      this.observe();
+    if ('IntersectionObserver' in window) {
+      if (!this.state.isIntersected && !this.state.idle) {
+        this.observe();
+      }
     } else {
-      this.isIntersected = true;
+      this.state.isIntersected = true;
+    }
+
+    if (this.state.isIntersected) {
+      this.$emit('intersected', this.$el);
     }
   },
 
   beforeDestroy() {
-    this.unobserve();
+    if (!this.state.isIntersected && !this.state.idle) {
+      this.unobserve();
+    }
   },
 
   methods: {
@@ -74,27 +110,27 @@ var script = {
       const {
         rootMargin,
         threshold
-      } = this;
+      } = this.state;
       const config = {
         root: undefined,
         rootMargin,
         threshold
       };
-      this.observer = new IntersectionObserver(this.onIntersection, config);
-      this.observer.observe(this.$el);
+      this.state.observer = new IntersectionObserver(this.onIntersection, config);
+      this.state.observer.observe(this.$el);
     },
 
     onIntersection(entries) {
-      this.isIntersected = entries.some(entry => entry.intersectionRatio > 0);
+      this.state.isIntersected = entries.some(entry => entry.intersectionRatio > 0);
 
-      if (this.isIntersected) {
+      if (this.state.isIntersected) {
         this.unobserve();
       }
     },
 
     unobserve() {
-      if ("IntersectionObserver" in window) {
-        this.observer.unobserve(this.$el);
+      if ('IntersectionObserver' in window) {
+        this.state.observer.unobserve(this.$el);
       }
     }
 
@@ -187,17 +223,17 @@ var __vue_render__ = function () {
 
   var _c = _vm._self._c || _h;
 
-  return _c(_vm.wrapperTag, {
+  return _c(_vm.state.wrapperTag, {
     tag: "component",
     class: ['v-lazy-component', {
-      'loading': !_vm.isIntersected,
-      'loaded': _vm.isIntersected
+      'v-lazy-component--loading': !_vm.state.isIntersected,
+      'v-lazy-component--loaded': _vm.state.isIntersected
     }],
     style: {
       minWidth: '1px',
       minHeight: '1px'
     }
-  }, [_vm.isIntersected ? _vm._t("default") : _vm._e(), _vm._v(" "), !_vm.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
+  }, [_vm.state.isIntersected ? _vm._t("default") : _vm._e(), _vm._v(" "), !_vm.state.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
 };
 
 var __vue_staticRenderFns__ = [];

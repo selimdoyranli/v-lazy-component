@@ -17,7 +17,7 @@
 #### Installation
 
 ```js
-npm install v-lazy-component --save
+yarn add v-lazy-component  # or npm install v-lazy-component --save
 ```
 
 #### Global Register
@@ -47,6 +47,7 @@ export default {
 new  Vue({
   el: "#app"
 });
+
 Vue.use(LazyComponent);
 </script>
 ```
@@ -55,17 +56,32 @@ Vue.use(LazyComponent);
 ```html
 <lazy-component wrapper-tag="section" @intersected="optionalDispatch">
   <YourComponent />
+  
+  <span slot="placeholder">Loading..</span> <!-- Optional -->
+</lazy-component>
+```
+
+idle variant
+```html
+....
+<button @click="isIntersected = true">Click for Render</button>
+
+<lazy-component :is-intersected="isIntersected" idle>
+  <YourComponent />
+  
   <span slot="placeholder">Loading..</span> <!-- Optional -->
 </lazy-component>
 ```
 
 #### Props
 
-|Name|Type|Default 
-|--|--|--|
-|`wrapper-tag` |String | div
-|`root-margin` |String | 0px 0px 0px 0px
-|`threshold` |Number, Array| 0
+|Name|Description|Type|Default 
+|--|--|--|--|
+|`wrapper-tag` |Html tag of lazy component|String | div
+|`is-intersected` |Do not wait observe, Force render |Boolean | false
+|`idle` |Do not use observer, wait `is-intersected` prop changes for render |Boolean | false
+|`root-margin` |[Intersection Observer API doc](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)|String | 0px 0px 0px 0px
+|`threshold` |[Intersection Observer API doc](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)|Number, Array| 0
 [See Intersection Observer API doc](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)
 
 #### Slots
@@ -79,11 +95,11 @@ Vue.use(LazyComponent);
 #### CSS Selectors
 
 ```css
-.v-lazy-component.loading {
+.v-lazy-component.v-lazy-component--loading {
   filter: blur(20px);
 }
 
-.v-lazy-component.loaded {
+.v-lazy-component.v-lazy-component--loaded {
   filter: blur(0);
   transition: filter 1s;
 }
