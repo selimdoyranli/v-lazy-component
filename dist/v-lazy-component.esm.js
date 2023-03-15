@@ -86,7 +86,7 @@ var script = {
   },
 
   mounted() {
-    if ('IntersectionObserver' in window) {
+    if (this.isIntersectionObserverSupported()) {
       if (!this.state.isIntersected && !this.state.idle) {
         this.observe();
       }
@@ -106,6 +106,10 @@ var script = {
   },
 
   methods: {
+    isIntersectionObserverSupported() {
+      return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype && 'isIntersecting' in window.IntersectionObserverEntry.prototype;
+    },
+
     observe() {
       const {
         rootMargin,
@@ -129,7 +133,7 @@ var script = {
     },
 
     unobserve() {
-      if ('IntersectionObserver' in window) {
+      if (this.isIntersectionObserverSupported()) {
         this.state.observer.unobserve(this.$el);
       }
     }

@@ -138,7 +138,7 @@ var script = {
     }
   },
   mounted: function mounted() {
-    if ('IntersectionObserver' in window) {
+    if (this.isIntersectionObserverSupported()) {
       if (!this.state.isIntersected && !this.state.idle) {
         this.observe();
       }
@@ -156,6 +156,9 @@ var script = {
     }
   },
   methods: {
+    isIntersectionObserverSupported: function isIntersectionObserverSupported() {
+      return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype && 'isIntersecting' in window.IntersectionObserverEntry.prototype;
+    },
     observe: function observe() {
       var _this$state = this.state,
           rootMargin = _this$state.rootMargin,
@@ -178,7 +181,7 @@ var script = {
       }
     },
     unobserve: function unobserve() {
-      if ('IntersectionObserver' in window) {
+      if (this.isIntersectionObserverSupported()) {
         this.state.observer.unobserve(this.$el);
       }
     }
@@ -289,7 +292,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-9b886db0";
+var __vue_module_identifier__ = "data-v-70b350c8";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

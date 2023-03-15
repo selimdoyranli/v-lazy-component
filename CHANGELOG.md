@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.1.1
+
+- defensive intersection observer checking
+
 ## 2.1.0
 
 - Force render feature
