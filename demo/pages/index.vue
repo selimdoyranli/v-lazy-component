@@ -11,10 +11,7 @@
       <lazy-component wrapper-tag="section" @intersected="writeLog">
         <v-card>
           <v-card-title class="headline"> HEYY ! </v-card-title>
-          <v-img height="250" src="https://source.unsplash.com/random"></v-img>
-          <v-card-text>
-            <p>I'm loaded.</p>
-          </v-card-text>
+          <v-img height="250" src="https://picsum.photos/768/768"></v-img>
         </v-card>
         <template #placeholder>
           <v-progress-circular
@@ -29,10 +26,7 @@
       <lazy-component @intersected="writeLog">
         <v-card>
           <v-card-title class="headline"> HEYY ! </v-card-title>
-          <v-img height="250" src="https://source.unsplash.com/random"></v-img>
-          <v-card-text>
-            <p>I'm loaded.</p>
-          </v-card-text>
+          <v-img height="250" src="https://picsum.photos/300/600"></v-img>
         </v-card>
         <template #placeholder>
           <v-progress-circular
@@ -52,10 +46,7 @@
       <lazy-component :is-intersected="true" @intersected="writeLog">
         <v-card>
           <v-card-title class="headline"> HEYY ! </v-card-title>
-          <v-img height="250" src="https://source.unsplash.com/random"></v-img>
-          <v-card-text>
-            <p>I'm loaded.</p>
-          </v-card-text>
+          <v-img height="250" src="https://picsum.photos/600/300"></v-img>
         </v-card>
         <template #placeholder>
           <v-progress-circular
@@ -82,10 +73,7 @@
       >
         <v-card>
           <v-card-title class="headline"> HEYY ! </v-card-title>
-          <v-img height="250" src="https://source.unsplash.com/random"></v-img>
-          <v-card-text>
-            <p>I'm loaded.</p>
-          </v-card-text>
+          <v-img height="250" src="https://picsum.photos/768/768"></v-img>
         </v-card>
         <template #placeholder>
           <v-progress-circular
@@ -99,7 +87,7 @@
 </template>
 
 <script>
-import LazyComponent from '../../dist/v-lazy-component.esm'
+import LazyComponent from '../../vue2'
 
 export default {
   components: {
@@ -112,6 +100,7 @@ export default {
   },
   methods: {
     writeLog(el) {
+      // eslint-disable-next-line no-console
       console.log('Loaded', el)
     },
   },

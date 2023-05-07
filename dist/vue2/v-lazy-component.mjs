@@ -1,81 +1,25 @@
-'use strict';function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]);
-
-  if (_i == null) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-
-  var _s, _e;
-
-  try {
-    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-  return arr2;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var script = {
   name: 'LazyComponent',
   props: {
@@ -94,7 +38,6 @@ var script = {
       required: false,
       default: false
     },
-
     /**
      * See IntersectionOberserver rootMargin [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)
      */
@@ -103,7 +46,6 @@ var script = {
       required: false,
       default: '0px 0px 0px 0px'
     },
-
     /**
      * See IntersectionOberserver treshold [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)
      */
@@ -113,7 +55,7 @@ var script = {
       default: 0
     }
   },
-  data: function data() {
+  data() {
     return {
       state: {
         wrapperTag: this.wrapperTag,
@@ -126,18 +68,18 @@ var script = {
     };
   },
   watch: {
-    isIntersected: function isIntersected(value) {
+    isIntersected(value) {
       if (value) {
         this.state.isIntersected = true;
       }
     },
-    'state.isIntersected': function stateIsIntersected(value) {
+    'state.isIntersected'(value) {
       if (value) {
         this.$emit('intersected', this.$el);
       }
     }
   },
-  mounted: function mounted() {
+  mounted() {
     if (this.isIntersectionObserverSupported()) {
       if (!this.state.isIntersected && !this.state.idle) {
         this.observe();
@@ -145,48 +87,47 @@ var script = {
     } else {
       this.state.isIntersected = true;
     }
-
     if (this.state.isIntersected) {
       this.$emit('intersected', this.$el);
     }
   },
-  beforeDestroy: function beforeDestroy() {
+  beforeDestroy() {
     if (!this.state.isIntersected && !this.state.idle) {
       this.unobserve();
     }
   },
   methods: {
-    isIntersectionObserverSupported: function isIntersectionObserverSupported() {
+    isIntersectionObserverSupported() {
       return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype && 'isIntersecting' in window.IntersectionObserverEntry.prototype;
     },
-    observe: function observe() {
-      var _this$state = this.state,
-          rootMargin = _this$state.rootMargin,
-          threshold = _this$state.threshold;
-      var config = {
+    observe() {
+      const {
+        rootMargin,
+        threshold
+      } = this.state;
+      const config = {
         root: undefined,
-        rootMargin: rootMargin,
-        threshold: threshold
+        rootMargin,
+        threshold
       };
       this.state.observer = new IntersectionObserver(this.onIntersection, config);
       this.state.observer.observe(this.$el);
     },
-    onIntersection: function onIntersection(entries) {
-      this.state.isIntersected = entries.some(function (entry) {
-        return entry.intersectionRatio > 0;
-      });
-
+    onIntersection(entries) {
+      this.state.isIntersected = entries.some(entry => entry.intersectionRatio > 0);
       if (this.state.isIntersected) {
         this.unobserve();
       }
     },
-    unobserve: function unobserve() {
+    unobserve() {
       if (this.isIntersectionObserverSupported()) {
         this.state.observer.unobserve(this.$el);
       }
     }
   }
-};function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+};
+
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
     if (typeof shadowMode !== 'boolean') {
         createInjectorSSR = createInjector;
         createInjector = shadowMode;
@@ -259,17 +200,15 @@ var script = {
         }
     }
     return script;
-}/* script */
-var __vue_script__ = script;
+}
+
+/* script */
+const __vue_script__ = script;
 /* template */
-
-var __vue_render__ = function __vue_render__() {
+var __vue_render__ = function () {
   var _vm = this;
-
   var _h = _vm.$createElement;
-
   var _c = _vm._self._c || _h;
-
   return _c(_vm.state.wrapperTag, {
     tag: "component",
     class: ['v-lazy-component', {
@@ -282,52 +221,42 @@ var __vue_render__ = function __vue_render__() {
     }
   }, [_vm.state.isIntersected ? _vm._t("default") : _vm._e(), _vm._v(" "), !_vm.state.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
 };
-
 var __vue_staticRenderFns__ = [];
+
 /* style */
-
-var __vue_inject_styles__ = undefined;
+const __vue_inject_styles__ = undefined;
 /* scoped */
-
-var __vue_scope_id__ = undefined;
+const __vue_scope_id__ = undefined;
 /* module identifier */
-
-var __vue_module_identifier__ = "data-v-70b350c8";
+const __vue_module_identifier__ = undefined;
 /* functional template */
-
-var __vue_is_functional_template__ = false;
+const __vue_is_functional_template__ = false;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-var __vue_component__ = /*#__PURE__*/normalizeComponent({
+const __vue_component__ = /*#__PURE__*/normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);// Import vue component
-// IIFE injects install function into component, allowing component
-// to be registered via Vue.use() as well as Vue.component(),
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
-var component = /*#__PURE__*/(function () {
-  // Get component instance
-  var installable = __vue_component__; // Attach install function executed by Vue.use()
+// Import vue component
 
-  installable.install = function (Vue) {
-    Vue.component('LazyComponent', installable);
-  };
+// install function executed by Vue.use()
+const install = function installLazyComponent(Vue) {
+  if (install.installed) return;
+  install.installed = true;
+  Vue.component('LazyComponent', __vue_component__);
+};
 
-  return installable;
-})(); // It's possible to expose named exports when writing components that can
+// Inject install function into component - allows component
+// to be registered via Vue.use() as well as Vue.component()
+__vue_component__.install = install;
+
+// It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
-// export const RollupDemoDirective = directive;
-var namedExports=/*#__PURE__*/Object.freeze({__proto__:null,'default': component});// only expose one global var, with named exports exposed as properties of
-// that global var (eg. plugin.namedExport)
+// export const RollupDemoDirective = component;
 
-Object.entries(namedExports).forEach(function (_ref) {
-  var _ref2 = _slicedToArray(_ref, 2),
-      exportName = _ref2[0],
-      exported = _ref2[1];
-
-  if (exportName !== 'default') component[exportName] = exported;
-});module.exports=component;
+export { __vue_component__ as default };

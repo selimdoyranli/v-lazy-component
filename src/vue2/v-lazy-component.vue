@@ -129,3 +129,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-lazy-component {
+  position: relative;
+}
+</style>

@@ -1,0 +1,18 @@
+{
+  "name": "v-lazy-component-vue3-serve",
+  "scripts": {
+    "serve": "vue-cli-service serve serve.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vue/cli-service": "^4.5.10",
+    "vue": "^3.0.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "license": "MIT"
+}
