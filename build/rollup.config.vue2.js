@@ -78,6 +78,18 @@ if (!argv.format || argv.format === 'umd') {
     external,
     output: [
       {
+        file: 'vue2/index.js',
+        format: 'umd',
+        exports: 'named',
+        globals,
+        name: 'LazyComponent',
+        plugins: [
+          terser({
+            ...baseConfig.plugins.terser,
+          }),
+        ]
+      },
+      {
         file: 'dist/vue2/index.js',
         format: 'umd',
         exports: 'named',
