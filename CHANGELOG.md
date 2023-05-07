@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v3.0.1
+
+[compare changes](https://github.com/RadKod/v-lazy-component/compare/v3.0.0...v3.0.1)
+
+
+### 🩹 Fixes
+
+  - Vue2 entry point export fix ([aa786f7](https://github.com/RadKod/v-lazy-component/commit/aa786f7))
+
+### ❤️  Contributors
+
+- Selimdoyranli <selim@radkod.com>
+
 ## v3.0.0
 
 [compare changes](https://github.com/RadKod/v-lazy-component/compare/2.1.1...v3.0.0)
