@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v3.0.0
+
+[compare changes](https://github.com/RadKod/v-lazy-component/compare/2.1.1...v3.0.0)
+
+
+### 🚀 Enhancements
+
+  - Vue3 support ([a657452](https://github.com/RadKod/v-lazy-component/commit/a657452))
+
+### ❤️  Contributors
+
+- Selimdoyranli <selim@radkod.com>
+
 ## 2.1.1
 
 - defensive intersection observer checking
