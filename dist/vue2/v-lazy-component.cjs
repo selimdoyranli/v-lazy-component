@@ -1,3 +1,4 @@
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});//
 //
 //
 //
@@ -18,7 +19,7 @@
 //
 //
 //
-//
+
 var script = {
   name: 'LazyComponent',
   props: {
@@ -37,7 +38,6 @@ var script = {
       required: false,
       default: false
     },
-
     /**
      * See IntersectionOberserver rootMargin [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)
      */
@@ -46,7 +46,6 @@ var script = {
       required: false,
       default: '0px 0px 0px 0px'
     },
-
     /**
      * See IntersectionOberserver treshold [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options)
      */
@@ -56,8 +55,7 @@ var script = {
       default: 0
     }
   },
-
-  data() {
+  data: function data() {
     return {
       state: {
         wrapperTag: this.wrapperTag,
@@ -69,23 +67,19 @@ var script = {
       }
     };
   },
-
   watch: {
-    isIntersected(value) {
+    isIntersected: function isIntersected(value) {
       if (value) {
         this.state.isIntersected = true;
       }
     },
-
-    'state.isIntersected'(value) {
+    'state.isIntersected': function stateIsIntersected(value) {
       if (value) {
         this.$emit('intersected', this.$el);
       }
     }
-
   },
-
-  mounted() {
+  mounted: function mounted() {
     if (this.isIntersectionObserverSupported()) {
       if (!this.state.isIntersected && !this.state.idle) {
         this.observe();
@@ -93,55 +87,46 @@ var script = {
     } else {
       this.state.isIntersected = true;
     }
-
     if (this.state.isIntersected) {
       this.$emit('intersected', this.$el);
     }
   },
-
-  beforeDestroy() {
+  beforeDestroy: function beforeDestroy() {
     if (!this.state.isIntersected && !this.state.idle) {
       this.unobserve();
     }
   },
-
   methods: {
-    isIntersectionObserverSupported() {
+    isIntersectionObserverSupported: function isIntersectionObserverSupported() {
       return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype && 'isIntersecting' in window.IntersectionObserverEntry.prototype;
     },
-
-    observe() {
-      const {
-        rootMargin,
-        threshold
-      } = this.state;
-      const config = {
+    observe: function observe() {
+      var _this$state = this.state,
+        rootMargin = _this$state.rootMargin,
+        threshold = _this$state.threshold;
+      var config = {
         root: undefined,
-        rootMargin,
-        threshold
+        rootMargin: rootMargin,
+        threshold: threshold
       };
       this.state.observer = new IntersectionObserver(this.onIntersection, config);
       this.state.observer.observe(this.$el);
     },
-
-    onIntersection(entries) {
-      this.state.isIntersected = entries.some(entry => entry.intersectionRatio > 0);
-
+    onIntersection: function onIntersection(entries) {
+      this.state.isIntersected = entries.some(function (entry) {
+        return entry.intersectionRatio > 0;
+      });
       if (this.state.isIntersected) {
         this.unobserve();
       }
     },
-
-    unobserve() {
+    unobserve: function unobserve() {
       if (this.isIntersectionObserverSupported()) {
         this.state.observer.unobserve(this.$el);
       }
     }
-
   }
-};
-
-function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+};function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
     if (typeof shadowMode !== 'boolean') {
         createInjectorSSR = createInjector;
         createInjector = shadowMode;
@@ -214,19 +199,13 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
         }
     }
     return script;
-}
-
-/* script */
-const __vue_script__ = script;
+}/* script */
+var __vue_script__ = script;
 /* template */
-
-var __vue_render__ = function () {
+var __vue_render__ = function __vue_render__() {
   var _vm = this;
-
   var _h = _vm.$createElement;
-
   var _c = _vm._self._c || _h;
-
   return _c(_vm.state.wrapperTag, {
     tag: "component",
     class: ['v-lazy-component', {
@@ -239,46 +218,59 @@ var __vue_render__ = function () {
     }
   }, [_vm.state.isIntersected ? _vm._t("default") : _vm._e(), _vm._v(" "), !_vm.state.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
 };
-
 var __vue_staticRenderFns__ = [];
+
 /* style */
-
-const __vue_inject_styles__ = undefined;
+var __vue_inject_styles__ = undefined;
 /* scoped */
-
-const __vue_scope_id__ = undefined;
+var __vue_scope_id__ = undefined;
 /* module identifier */
-
-const __vue_module_identifier__ = undefined;
+var __vue_module_identifier__ = "data-v-36b530e4";
 /* functional template */
-
-const __vue_is_functional_template__ = false;
+var __vue_is_functional_template__ = false;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-const __vue_component__ = /*#__PURE__*/normalizeComponent({
+var __vue_component__ = /*#__PURE__*/normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);// Import vue component
 
-// Import vue component
-// IIFE injects install function into component, allowing component
-// to be registered via Vue.use() as well as Vue.component(),
+// install function executed by Vue.use()
+var install = function installLazyComponent(Vue) {
+  if (install.installed) return;
+  install.installed = true;
+  Vue.component('LazyComponent', __vue_component__);
+};
 
-var entry_esm = /*#__PURE__*/(() => {
-  // Get component instance
-  const installable = __vue_component__; // Attach install function executed by Vue.use()
+// Create module definition for Vue.use()
+var plugin = {
+  install: install
+};
 
-  installable.install = Vue => {
-    Vue.component('LazyComponent', installable);
-  };
+// To auto-install on non-es builds, when vue is found
+// eslint-disable-next-line no-redeclare
+/* global window, global */
+{
+  var GlobalVue = null;
+  if (typeof window !== 'undefined') {
+    GlobalVue = window.Vue;
+  } else if (typeof global !== 'undefined') {
+    GlobalVue = global.Vue;
+  }
+  if (GlobalVue) {
+    GlobalVue.use(plugin);
+  }
+}
 
-  return installable;
-})(); // It's possible to expose named exports when writing components that can
+// Inject install function into component - allows component
+// to be registered via Vue.use() as well as Vue.component()
+__vue_component__.install = install;
+
+// It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
-// export const RollupDemoDirective = directive;
-
-export default entry_esm;
+// export const RollupDemoDirective = component;
+exports["default"]=__vue_component__;

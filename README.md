@@ -1,37 +1,110 @@
-# v-lazy-component
-
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![changelog][changelog-src]][changelog-href]
 [![License][license-src]][license-href]
 
-> Vue component render when visible. Uses Intersection Observer API.
+<p align="center">
+<b>v-lazy-component</b>
+</p>
 
-[📖 **Release Notes**](./CHANGELOG.md) 
+<p align="center">
+Vue component render when visible 👁️⚡️
+</p>
 
-✨ Demo: [https://v-lazy-component.now.sh](https://v-lazy-component.now.sh)
+<p align="center">
+  <a href="https://v-lazy-component.vercel.app" target="_blank"> 
+    <img src='/meta/logo.png' width="256"/>
+  </a>
+</p>
 
-🟥 NPM: [https://www.npmjs.com/package/v-lazy-component](https://www.npmjs.com/package/v-lazy-component)
+<p align="center">
+  <p align="center"><sub>Created by<sub></p>
+    <p align="center">
+	    <a href="https://radkod.com" target="_blank">
+			<img src='/meta/radkod_signature.png' width="128" />
+		</a>
+    </p>
+</p>
 
-⬛ Github: [https://github.com/RadKod/v-lazy-component](https://github.com/RadKod/v-lazy-component)
+<p align="center">
+<a href="https://github.com/RadKod/v-lazy-component" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/RadKod/v-lazy-component?style=social"></a>
+</p>
 
-#### Installation
+<p align="center">
+  <a href="https://v-lazy-component.vercel.app" target="_blank">Website</a>
+</p>
+
+<div align="center">
+<sub>Buy me a coffee - <a href="https://www.buymeacoffee.com/RadKod">Sponsorship 💖</a></sub><br>
+</div>
+
+## Features
+- ⚡️ Lightweight
+- 🎨 Interactive
+- 👶🏻 Easy implementation
+- 📦 Vue2 & Vue3 support
+
+## Getting Started
+
+### Try it Online ⚡️
+
+[v-lazy-component](https://v-lazy-component.vercel.app)
+
+
+## Installation
 
 ```js
-yarn add v-lazy-component  # or npm install v-lazy-component --save
+yarn add v-lazy-component  # or npm i v-lazy-component -S
 ```
+
+### Vue3
+
+#### Global Register
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import LazyComponent from 'v-lazy-component'
+
+const app = createApp(App)
+
+app.use(LazyComponent)
+app.mount('#app')
+```
+
+#### Local Register
+```html
+<script setup>
+import LazyComponent from 'v-lazy-component'
+</script>
+```
+#### Via CDN
+```js
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/v-lazy-component/v-lazy-component.global.js"></script>
+
+<script>
+  const app = Vue.createApp({})
+    
+  app.use(LazyComponent)
+  app.mount('#app')
+</script>
+```
+
+### Vue2
 
 #### Global Register
 
 ```js
 import Vue from "vue";
-import LazyComponent from "v-lazy-component";
+import LazyComponent from "v-lazy-component/vue2";
 
 Vue.use(LazyComponent);
 ```
 
 #### Local Register
 ```js
-import LazyComponent from "v-lazy-component";
+import LazyComponent from "v-lazy-component/vue2";
 
 export default {
   components: {
@@ -41,7 +114,7 @@ export default {
 ```
 #### Via CDN
 ```js
-<script src="https://unpkg.com/v-lazy-component"></script>
+<script src="https://unpkg.com/v-lazy-component/dist/vue2/v-lazy-component.global.js"></script>
 
 <script>
 new  Vue({
@@ -51,11 +124,13 @@ new  Vue({
 Vue.use(LazyComponent);
 </script>
 ```
-#### Usage
+&nbsp;
+
+### Usage
 
 ```html
 <lazy-component wrapper-tag="section" @intersected="optionalDispatch">
-  <YourComponent />
+  <your-component/>
   
   <span slot="placeholder">Loading..</span> <!-- Optional -->
 </lazy-component>
@@ -67,7 +142,7 @@ idle variant
 <button @click="isIntersected = true">Click for Render</button>
 
 <lazy-component :is-intersected="isIntersected" idle>
-  <YourComponent />
+  <your-component/>
   
   <span slot="placeholder">Loading..</span> <!-- Optional -->
 </lazy-component>
@@ -105,26 +180,67 @@ idle variant
 }
 ```
 
+---
+
+## Development
+
+### Vue3
+
+```bash
+yarn build:vue3 # build for vue3
+```
+
+```bash
+# Serve
+
+cd dev/vue3
+
+yarn install
+yarn serve
+```
+
+### Vue2
+
+```bash
+yarn build:vue2 # build for vue2
+```
+
+```bash
+# Serve
+
+cd dev/vue2
+
+yarn install
+yarn serve
+```
+
+### Vue 2&3
+
+```bash
+yarn build # build for vue2 and vue3
+```
+
+## Sponsorship
+
+You can sponsor us for the continuity of our projects:
+
+<p align="left">
+  <a href="https://buymeacoffee.com/RadKod">
+    <img src='https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png'/>
+  </a>
+</p>
+
 ## License
 
 [MIT License](./LICENSE)
 
 Copyright (c) RadKod <info@radkod.com>
 
-## Author
-
-👤 **selimdoyranli**
-
-* Website: [@selimdoyranli](https://selimdoyranli.com)
-* Github: [@selimdoyranli](https://github.com/selimdoyranli)
-* LinkedIn: [@selimdoyranli](https://linkedin.com/in/selimdoyranli)
-* Team: [@RadKod](https://radkod.com)
-
-___
-
-CREATED BY
-
- [![RadKod](https://i.ibb.co/q5G6N0n/radkod-mail-imza.png)](https://www.radkod.com)
+<p align="left">
+  <a href="https://radkod.com">
+    <img src='/meta/radkod_signature.png'/>
+  </a>
+</p>
 
 <!-- Badges -->
 [npm-version-src]: https://img.shields.io/npm/v/v-lazy-component/latest.svg
@@ -135,6 +251,9 @@ CREATED BY
 
 [codecov-src]: https://img.shields.io/codecov/c/github/RadKod/v-lazy-component.svg
 [codecov-href]: https://codecov.io/gh/RadKod/v-lazy-component
+
+[changelog-src]: https://img.shields.io/static/v1?label=%F0%9F%93%96&message=Release%20Notes%20|%20CHANGELOG&color=blue
+[changelog-href]: ./CHANGELOG.md
 
 [license-src]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-href]: https://npmjs.com/package/v-lazy-component/LICENSE
