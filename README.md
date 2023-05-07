@@ -54,7 +54,7 @@ Vue component render when visible 👁️⚡️
 ## Installation
 
 ```js
-yarn add v-lazy-component  # or npm i v-lazy-component -S
+yarn add v-lazy-component  # or npm i v-lazy-component
 ```
 
 ### Vue3
@@ -80,8 +80,8 @@ import LazyComponent from 'v-lazy-component'
 ```
 #### Via CDN
 ```js
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://unpkg.com/v-lazy-component/v-lazy-component.global.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/v-lazy-component"></script>
 
 <script>
   const app = Vue.createApp({})
@@ -114,7 +114,8 @@ export default {
 ```
 #### Via CDN
 ```js
-<script src="https://unpkg.com/v-lazy-component/dist/vue2/v-lazy-component.global.js"></script>
+<script src="https://unpkg.com/vue@2"></script>
+<script src="https://unpkg.com/v-lazy-component/vue2"></script>
 
 <script>
 new  Vue({
@@ -132,7 +133,10 @@ Vue.use(LazyComponent);
 <lazy-component wrapper-tag="section" @intersected="optionalDispatch">
   <your-component/>
   
-  <span slot="placeholder">Loading..</span> <!-- Optional -->
+  <!-- Optional -->
+  <template #placeholder>
+    <span>Loading...</span>
+  </template>
 </lazy-component>
 ```
 
@@ -144,7 +148,10 @@ idle variant
 <lazy-component :is-intersected="isIntersected" idle>
   <your-component/>
   
-  <span slot="placeholder">Loading..</span> <!-- Optional -->
+  <!-- Optional -->
+  <template #placeholder>
+    <span>Loading...</span>
+  </template>
 </lazy-component>
 ```
 
