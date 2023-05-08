@@ -13,7 +13,7 @@
     "Selim Doyranlı <selimdoyranli@gmail.com> (https://selimdoyranli.com)"
   ],
   "bugs": "selimdoyranli@gmail.com",
-  "homepage": "https://v-lazy-component.now.sh",
+  "homepage": "https://v-lazy-component.vercel.app",
   "repository": {
     "type": "git",
     "url": "https://github.com/RadKod/v-lazy-component"
