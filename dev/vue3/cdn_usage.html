@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="../../dist/vue3/v-lazy-component.global.js"></script>
-</head>
-<body>
-  <div id="app">
-    <h1>Scroll down</h1>
-    <div style="height: 150vh;"></div>
-    
-    <lazy-component>
-      <h2>My Component</h2>
-      
-      <template #placeholder>
-        <h2>Loading...</h2>
-      </template>
-    </lazy-component>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="../../dist/vue3/v-lazy-component.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Scroll down</h1>
+      <div style="height: 150vh"></div>
 
-  <script>
-    const app = Vue.createApp({})
-    
-    app.use(LazyComponent)
+      <lazy-component>
+        <h2>My Component</h2>
 
-    app.mount('#app')
-  </script>
-</body>
+        <template #placeholder>
+          <h2>Loading...</h2>
+        </template>
+      </lazy-component>
+    </div>
+
+    <script>
+      const app = Vue.createApp({})
+
+      app.use(LazyComponent)
+
+      app.mount('#app')
+    </script>
+  </body>
 </html>

@@ -56,7 +56,7 @@
     "lint:eslint:fix": "eslint --fix --ext .js,.ts,.json,.vue,.pug --ignore-path .gitignore --ignore-path .eslintignore .",
     "lint:stylelint": "stylelint \"**/*.{css,sass,scss,less,stylus,vue}\" --ignore-path .stylelintignore",
     "lint:stylelint:fix": "stylelint --fix \"**/*.{css,sass,scss,less,stylus,vue}\" --ignore-path .stylelintignore",
-    "prettier": "prettier --ext .js,.ts,.json,.css,.scss,.less,.stylus,.vue,.html,.pug --config ./.prettierrc.js --ignore-path ./.prettierignore --write --end-of-line crlf"
+    "prettier": "prettier --config ./.prettierrc.js --ignore-path ./.prettierignore --write \"**/*.{js,ts,json,css,scss,vue,html,pug}\" --end-of-line crlf"
   },
   "lint-staged": {
     "*.{ts,js,vue}": [
