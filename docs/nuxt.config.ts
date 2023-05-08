@@ -4,6 +4,7 @@ const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
   extends: '@nuxt-themes/docus',
+  ssr: true,
   components: [
     {
       prefix: '',
