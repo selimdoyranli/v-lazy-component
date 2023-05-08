@@ -1,23 +1,13 @@
-<template>
-  <component
-    ref="rootRef"
-    :is="state.wrapperTag"
-    :class="[
-      'v-lazy-component',
-      {
-        'v-lazy-component--loading': !state.isIntersected,
-        'v-lazy-component--loaded': state.isIntersected
-      }
-    ]"
-    :style="{
-      minWidth: '1px',
-      minHeight: '1px'
-    }"
-  >
-    <slot v-if="state.isIntersected" />
-    <!-- Content that is loaded as a placeholder until it comes into view -->
-    <slot v-if="!state.isIntersected" name="placeholder" />
-  </component>
+<template lang="pug">
+component(
+  ref="rootRef"
+  :is="state.wrapperTag"
+  :class="['v-lazy-component', { 'v-lazy-component--loading': !state.isIntersected, 'v-lazy-component--loaded': state.isIntersected }]"
+  :style="{ minWidth: '1px', minHeight: '1px' }"
+)
+  slot(v-if="state.isIntersected")
+  // Content that is loaded as a placeholder until it comes into view
+  slot(v-if="!state.isIntersected" name="placeholder")
 </template>
 
 <script>
@@ -148,8 +138,4 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-.v-lazy-component {
-  position: relative;
-}
-</style>
+<style lang="scss" src="./v-lazy-component.scss"></style>

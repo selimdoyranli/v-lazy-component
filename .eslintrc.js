@@ -68,7 +68,8 @@ module.exports = {
         }
       }
     ],
-    'vue/no-empty-component-block': ['error'],
+    'vue/no-empty-component-block': 'off',
+    'vue/valid-template-root': 'off',
     'vue/no-static-inline-styles': 'off',
     'vue/require-prop-types': ['error'],
     'vue/require-default-prop': ['error'],

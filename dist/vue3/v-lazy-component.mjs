@@ -131,7 +131,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 script.render = render;
-script.__scopeId = "data-v-5088338c";
 
 // Import vue component
 

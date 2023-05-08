@@ -128,8 +128,7 @@
     }),
     _: 3
   }, 8, ["class"]);
-}script.render = render;
-script.__scopeId = "data-v-5088338c";// Import vue component
+}script.render = render;// Import vue component
 
 // Default export is installable instance of component.
 // IIFE injects install function into component, allowing component

@@ -9,16 +9,6 @@
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var script = {
   name: 'LazyComponent',
@@ -216,7 +206,7 @@ var __vue_render__ = function __vue_render__() {
       minWidth: '1px',
       minHeight: '1px'
     }
-  }, [_vm.state.isIntersected ? _vm._t("default") : _vm._e(), _vm._v(" "), !_vm.state.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
+  }, [_vm.state.isIntersected ? _vm._t("default") : _vm._e(), !_vm.state.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
 };
 var __vue_staticRenderFns__ = [];
 
@@ -225,7 +215,7 @@ var __vue_inject_styles__ = undefined;
 /* scoped */
 var __vue_scope_id__ = undefined;
 /* module identifier */
-var __vue_module_identifier__ = "data-v-36b530e4";
+var __vue_module_identifier__ = "data-v-06ebb1a0";
 /* functional template */
 var __vue_is_functional_template__ = false;
 /* style inject */

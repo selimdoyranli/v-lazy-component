@@ -5,6 +5,7 @@ import alias from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
 import replace from '@rollup/plugin-replace'
 import babel from '@rollup/plugin-babel'
+import scss from 'rollup-plugin-scss'
 import css from 'rollup-plugin-css-only'
 import { terser } from 'rollup-plugin-terser'
 import minimist from 'minimist'
@@ -35,6 +36,10 @@ const baseConfig = {
       'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.ES_BUILD': JSON.stringify('false'),
       preventAssignment: true
+    },
+    scss: {
+      fileName: 'v-lazy-component.css',
+      outputStyle: 'compressed'
     },
     css: {
       output: 'dist/vue3/v-lazy-component.css'
@@ -115,6 +120,9 @@ if (!argv.format || argv.format === 'umd') {
         ...baseConfig.plugins.replace
       }),
       ...baseConfig.plugins.preVue,
+      scss({
+        ...baseConfig.plugins.scss
+      }),
       css({
         ...baseConfig.plugins.css
       }),
@@ -165,6 +173,9 @@ if (!argv.format || argv.format === 'es') {
         'process.env.ES_BUILD': JSON.stringify('true')
       }),
       ...baseConfig.plugins.preVue,
+      scss({
+        ...baseConfig.plugins.scss
+      }),
       css({
         ...baseConfig.plugins.css
       }),
@@ -218,6 +229,9 @@ if (!argv.format || argv.format === 'cjs') {
     plugins: [
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
+      scss({
+        ...baseConfig.plugins.scss
+      }),
       css({
         ...baseConfig.plugins.css
       }),
@@ -261,6 +275,9 @@ if (!argv.format || argv.format === 'iife') {
     plugins: [
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
+      scss({
+        ...baseConfig.plugins.scss
+      }),
       css({
         ...baseConfig.plugins.css
       }),
