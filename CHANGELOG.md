@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v3.0.4
+
+[compare changes](https://github.com/RadKod/v-lazy-component/compare/v3.0.3...v3.0.4)
+
+
+### 🩹 Fixes
+
+  - Build fix for docs ([660ad97](https://github.com/RadKod/v-lazy-component/commit/660ad97))
+
+### ❤️  Contributors
+
+- Selimdoyranli <selim@radkod.com>
+
 ## v3.0.3
 
 [compare changes](https://github.com/RadKod/v-lazy-component/compare/v3.0.2...v3.0.3)
