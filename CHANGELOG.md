@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## v3.0.5
+
+[compare changes](https://github.com/RadKod/v-lazy-component/compare/v3.0.4...v3.0.5)
+
+
+### 💅 Refactors
+
+  - Structure improvements ([a4de217](https://github.com/RadKod/v-lazy-component/commit/a4de217))
+  - Pug & scss ([6f3eb96](https://github.com/RadKod/v-lazy-component/commit/6f3eb96))
+
+### 🏡 Chore
+
+  - Add nvmrc files ([af20558](https://github.com/RadKod/v-lazy-component/commit/af20558))
+
+### 🎨 Styles
+
+  - Code formatting ([734250e](https://github.com/RadKod/v-lazy-component/commit/734250e))
+
+### ❤️  Contributors
+
+- Selimdoyranli <selim@radkod.com>
+
 ## v3.0.4
 
 [compare changes](https://github.com/RadKod/v-lazy-component/compare/v3.0.3...v3.0.4)
