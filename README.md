@@ -48,7 +48,7 @@ Vue component render when visible 👁️⚡️
 
 ### Try it Online ⚡️
 
-[v-lazy-component](https://v-lazy-component.vercel.app)
+[DEMO](https://v-lazy-component.vercel.app/demo)
 
 
 ## Installation
