@@ -135,7 +135,6 @@
   }
 
   script.render = render;
-  script.__scopeId = "data-v-5088338c";
 
   // Import vue component
 

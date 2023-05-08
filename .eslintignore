@@ -1,0 +1,11 @@
+dist
+/vue2
+/vue3
+/docs
+/meta
+coverage
+node_modules
+package.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

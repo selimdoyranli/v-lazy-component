@@ -9,16 +9,6 @@
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var script = {
   name: 'LazyComponent',
@@ -219,7 +209,7 @@ var __vue_render__ = function () {
       minWidth: '1px',
       minHeight: '1px'
     }
-  }, [_vm.state.isIntersected ? _vm._t("default") : _vm._e(), _vm._v(" "), !_vm.state.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
+  }, [_vm.state.isIntersected ? _vm._t("default") : _vm._e(), !_vm.state.isIntersected ? _vm._t("placeholder") : _vm._e()], 2);
 };
 var __vue_staticRenderFns__ = [];
 

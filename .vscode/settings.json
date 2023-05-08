@@ -1,0 +1,21 @@
+{
+  "emmet.showAbbreviationSuggestions": true,
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "vue": "jade"
+  },
+  "files.insertFinalNewline": true,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": ["css", "scss", "html", "vue"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true
+  },
+  "editor.tabSize": 2,
+  "explorer.compactFolders": false
+}

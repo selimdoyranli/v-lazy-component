@@ -1,6 +1,6 @@
 declare module '*.vue' {
-  import { DefineComponent } from 'vue-next';
+  import { DefineComponent } from 'vue-next'
 
-  const Component: DefineComponent<{}, {}, any>;
-  export default Component;
+  const Component: DefineComponent<{}, {}, any>
+  export default Component
 }

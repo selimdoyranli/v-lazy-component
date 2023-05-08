@@ -1,24 +1,25 @@
-import fs from 'fs';
-import path from 'path';
-import vue from 'vue-next-rollup-plugin-vue';
-import alias from '@rollup/plugin-alias';
-import commonjs from '@rollup/plugin-commonjs';
-import replace from '@rollup/plugin-replace';
-import babel from '@rollup/plugin-babel';
-import css from 'rollup-plugin-css-only';
-import { terser } from 'rollup-plugin-terser';
-import minimist from 'minimist';
+import fs from 'fs'
+import path from 'path'
+import vue from 'vue-next-rollup-plugin-vue'
+import alias from '@rollup/plugin-alias'
+import commonjs from '@rollup/plugin-commonjs'
+import replace from '@rollup/plugin-replace'
+import babel from '@rollup/plugin-babel'
+import scss from 'rollup-plugin-scss'
+import css from 'rollup-plugin-css-only'
+import { terser } from 'rollup-plugin-terser'
+import minimist from 'minimist'
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs
   .readFileSync('./.browserslistrc')
   .toString()
   .split('\n')
-  .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
+  .filter(entry => entry && entry.substring(0, 2) !== 'ie')
 
-const argv = minimist(process.argv.slice(2));
+const argv = minimist(process.argv.slice(2))
 
-const projectRoot = path.resolve(__dirname, '..');
+const projectRoot = path.resolve(__dirname, '..')
 
 const baseConfig = {
   input: 'src/vue3/entry.js',
@@ -27,51 +28,56 @@ const baseConfig = {
       alias({
         resolve: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
         entries: {
-          '@': path.resolve(projectRoot, 'src'),
-        },
-      }),
+          '@': path.resolve(projectRoot, 'src')
+        }
+      })
     ],
     replace: {
       'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.ES_BUILD': JSON.stringify('false'),
-      preventAssignment: true,
+      preventAssignment: true
+    },
+    scss: {
+      fileName: 'v-lazy-component.css',
+      outputStyle: 'compressed'
     },
     css: {
-      output: 'dist/vue3/v-lazy-component.css',
+      output: 'dist/vue3/v-lazy-component.css'
     },
     vue: {
       css: false,
       template: {
-        isProduction: true,
-      },
+        isProduction: true
+      }
     },
     babel: {
       exclude: 'node_modules/**',
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-      babelHelpers: 'bundled',
+      babelHelpers: 'bundled'
     },
     terser: {}
-  },
-};
+  }
+}
 
 // ESM/UMD/IIFE shared settings: externals
 // Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
 const external = [
   // list external dependencies, exactly the way it is written in the import statement.
   // eg. 'jquery'
-  'vue',
-];
+  'vue'
+]
 
 // UMD/IIFE shared settings: output.globals
 // Refer to https://rollupjs.org/guide/en#output-globals for details
 const globals = {
   // Provide global variable names to replace your external imports
   // eg. jquery: '$'
-  vue: 'Vue',
-};
+  vue: 'Vue'
+}
 
 // Customize configs for individual targets
-const buildFormats = [];
+const buildFormats = []
+
 if (!argv.format || argv.format === 'umd') {
   const umdConfig = {
     ...baseConfig,
@@ -85,8 +91,8 @@ if (!argv.format || argv.format === 'umd') {
         name: 'LazyComponent',
         plugins: [
           terser({
-            ...baseConfig.plugins.terser,
-          }),
+            ...baseConfig.plugins.terser
+          })
         ]
       },
       {
@@ -105,20 +111,23 @@ if (!argv.format || argv.format === 'umd') {
         plugins: [
           terser({
             ...baseConfig.plugins.terser
-          }),
+          })
         ]
       }
     ],
     plugins: [
       replace({
-        ...baseConfig.plugins.replace,
+        ...baseConfig.plugins.replace
       }),
       ...baseConfig.plugins.preVue,
+      scss({
+        ...baseConfig.plugins.scss
+      }),
       css({
         ...baseConfig.plugins.css
       }),
       vue({
-        ...baseConfig.plugins.vue,
+        ...baseConfig.plugins.vue
       }),
       babel({
         ...baseConfig.plugins.babel,
@@ -126,15 +135,15 @@ if (!argv.format || argv.format === 'umd') {
           [
             '@babel/preset-env',
             {
-              targets: esbrowserslist,
-            },
-          ],
-        ],
+              targets: esbrowserslist
+            }
+          ]
+        ]
       }),
-      commonjs(),
-    ],
-  };
-  buildFormats.push(umdConfig);
+      commonjs()
+    ]
+  }
+  buildFormats.push(umdConfig)
 }
 
 if (!argv.format || argv.format === 'es') {
@@ -145,7 +154,7 @@ if (!argv.format || argv.format === 'es') {
       {
         file: 'dist/vue3/v-lazy-component.mjs',
         format: 'esm',
-        exports: 'named',
+        exports: 'named'
       },
       {
         file: 'dist/vue3/v-lazy-component.min.mjs',
@@ -154,21 +163,24 @@ if (!argv.format || argv.format === 'es') {
         plugins: [
           terser({
             ...baseConfig.plugins.terser
-          }),
+          })
         ]
       }
     ],
     plugins: [
       replace({
         ...baseConfig.plugins.replace,
-        'process.env.ES_BUILD': JSON.stringify('true'),
+        'process.env.ES_BUILD': JSON.stringify('true')
       }),
       ...baseConfig.plugins.preVue,
+      scss({
+        ...baseConfig.plugins.scss
+      }),
       css({
         ...baseConfig.plugins.css
       }),
       vue({
-        ...baseConfig.plugins.vue,
+        ...baseConfig.plugins.vue
       }),
       babel({
         ...baseConfig.plugins.babel,
@@ -176,15 +188,15 @@ if (!argv.format || argv.format === 'es') {
           [
             '@babel/preset-env',
             {
-              targets: esbrowserslist,
-            },
-          ],
-        ],
+              targets: esbrowserslist
+            }
+          ]
+        ]
       }),
-      commonjs(),
-    ],
-  };
-  buildFormats.push(esConfig);
+      commonjs()
+    ]
+  }
+  buildFormats.push(esConfig)
 }
 
 if (!argv.format || argv.format === 'cjs') {
@@ -198,7 +210,7 @@ if (!argv.format || argv.format === 'cjs') {
         format: 'cjs',
         name: 'LazyComponent',
         exports: 'named',
-        globals,
+        globals
       },
       {
         compact: true,
@@ -210,13 +222,16 @@ if (!argv.format || argv.format === 'cjs') {
         plugins: [
           terser({
             ...baseConfig.plugins.terser
-          }),
+          })
         ]
       }
     ],
     plugins: [
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
+      scss({
+        ...baseConfig.plugins.scss
+      }),
       css({
         ...baseConfig.plugins.css
       }),
@@ -224,14 +239,14 @@ if (!argv.format || argv.format === 'cjs') {
         ...baseConfig.plugins.vue,
         template: {
           ...baseConfig.plugins.vue.template,
-          optimizeSSR: true,
-        },
+          optimizeSSR: true
+        }
       }),
       babel(baseConfig.plugins.babel),
-      commonjs(),
-    ],
-  };
-  buildFormats.push(cjsConfig);
+      commonjs()
+    ]
+  }
+  buildFormats.push(cjsConfig)
 }
 
 if (!argv.format || argv.format === 'iife') {
@@ -243,7 +258,7 @@ if (!argv.format || argv.format === 'iife') {
         file: 'dist/vue3/v-lazy-component.global.js',
         format: 'iife',
         name: 'LazyComponent',
-        globals,
+        globals
       },
       {
         file: 'dist/vue3/v-lazy-component.global.min.js',
@@ -253,13 +268,16 @@ if (!argv.format || argv.format === 'iife') {
         plugins: [
           terser({
             ...baseConfig.plugins.terser
-          }),
+          })
         ]
       }
     ],
     plugins: [
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
+      scss({
+        ...baseConfig.plugins.scss
+      }),
       css({
         ...baseConfig.plugins.css
       }),
@@ -267,11 +285,11 @@ if (!argv.format || argv.format === 'iife') {
         ...baseConfig.plugins.vue
       }),
       babel(baseConfig.plugins.babel),
-      commonjs(),
-    ],
-  };
-  buildFormats.push(unpkgConfig);
+      commonjs()
+    ]
+  }
+  buildFormats.push(unpkgConfig)
 }
 
 // Export config
-export default buildFormats;
+export default buildFormats
