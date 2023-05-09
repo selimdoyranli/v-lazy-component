@@ -120,6 +120,23 @@ if (!argv.format || argv.format === 'umd') {
             ...baseConfig.plugins.terser
           })
         ]
+      },
+      {
+        file: 'dist/vue2/v-lazy-component.global.js',
+        format: 'umd',
+        globals,
+        name: 'LazyComponent'
+      },
+      {
+        file: 'dist/vue2/v-lazy-component.global.min.js',
+        format: 'umd',
+        globals,
+        name: 'LazyComponent',
+        plugins: [
+          terser({
+            ...baseConfig.plugins.terser
+          })
+        ]
       }
     ],
     plugins: [
@@ -245,45 +262,6 @@ if (!argv.format || argv.format === 'cjs') {
     ]
   }
   buildFormats.push(cjsConfig)
-}
-
-if (!argv.format || argv.format === 'iife') {
-  const unpkgConfig = {
-    ...baseConfig,
-    external,
-    output: [
-      {
-        file: 'dist/vue2/v-lazy-component.global.js',
-        format: 'iife',
-        name: 'LazyComponent',
-        globals
-      },
-      {
-        file: 'dist/vue2/v-lazy-component.global.min.js',
-        format: 'iife',
-        name: 'LazyComponent',
-        globals,
-        plugins: [
-          terser({
-            ...baseConfig.plugins.terser
-          })
-        ]
-      }
-    ],
-    plugins: [
-      replace(baseConfig.plugins.replace),
-      ...baseConfig.plugins.preVue,
-      css({
-        ...baseConfig.plugins.css
-      }),
-      vue({
-        ...baseConfig.plugins.vue
-      }),
-      babel(baseConfig.plugins.babel),
-      commonjs()
-    ]
-  }
-  buildFormats.push(unpkgConfig)
 }
 
 // Export config

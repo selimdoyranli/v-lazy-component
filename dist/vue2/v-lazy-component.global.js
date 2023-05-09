@@ -1,5 +1,8 @@
-var LazyComponent = (function () {
-  'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.LazyComponent = factory());
+})(this, (function () { 'use strict';
 
   //
   //
@@ -48,7 +51,7 @@ var LazyComponent = (function () {
         default: 0
       }
     },
-    data: function data() {
+    data() {
       return {
         state: {
           wrapperTag: this.wrapperTag,
@@ -61,18 +64,18 @@ var LazyComponent = (function () {
       };
     },
     watch: {
-      isIntersected: function isIntersected(value) {
+      isIntersected(value) {
         if (value) {
           this.state.isIntersected = true;
         }
       },
-      'state.isIntersected': function stateIsIntersected(value) {
+      'state.isIntersected'(value) {
         if (value) {
           this.$emit('intersected', this.$el);
         }
       }
     },
-    mounted: function mounted() {
+    mounted() {
       if (this.isIntersectionObserverSupported()) {
         if (!this.state.isIntersected && !this.state.idle) {
           this.observe();
@@ -84,36 +87,35 @@ var LazyComponent = (function () {
         this.$emit('intersected', this.$el);
       }
     },
-    beforeDestroy: function beforeDestroy() {
+    beforeDestroy() {
       if (!this.state.isIntersected && !this.state.idle) {
         this.unobserve();
       }
     },
     methods: {
-      isIntersectionObserverSupported: function isIntersectionObserverSupported() {
+      isIntersectionObserverSupported() {
         return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype && 'isIntersecting' in window.IntersectionObserverEntry.prototype;
       },
-      observe: function observe() {
-        var _this$state = this.state,
-          rootMargin = _this$state.rootMargin,
-          threshold = _this$state.threshold;
-        var config = {
+      observe() {
+        const {
+          rootMargin,
+          threshold
+        } = this.state;
+        const config = {
           root: undefined,
-          rootMargin: rootMargin,
-          threshold: threshold
+          rootMargin,
+          threshold
         };
         this.state.observer = new IntersectionObserver(this.onIntersection, config);
         this.state.observer.observe(this.$el);
       },
-      onIntersection: function onIntersection(entries) {
-        this.state.isIntersected = entries.some(function (entry) {
-          return entry.intersectionRatio > 0;
-        });
+      onIntersection(entries) {
+        this.state.isIntersected = entries.some(entry => entry.intersectionRatio > 0);
         if (this.state.isIntersected) {
           this.unobserve();
         }
       },
-      unobserve: function unobserve() {
+      unobserve() {
         if (this.isIntersectionObserverSupported()) {
           this.state.observer.unobserve(this.$el);
         }
@@ -197,9 +199,9 @@ var LazyComponent = (function () {
   }
 
   /* script */
-  var __vue_script__ = script;
+  const __vue_script__ = script;
   /* template */
-  var __vue_render__ = function __vue_render__() {
+  var __vue_render__ = function () {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -218,20 +220,20 @@ var LazyComponent = (function () {
   var __vue_staticRenderFns__ = [];
 
   /* style */
-  var __vue_inject_styles__ = undefined;
+  const __vue_inject_styles__ = undefined;
   /* scoped */
-  var __vue_scope_id__ = undefined;
+  const __vue_scope_id__ = undefined;
   /* module identifier */
-  var __vue_module_identifier__ = undefined;
+  const __vue_module_identifier__ = undefined;
   /* functional template */
-  var __vue_is_functional_template__ = false;
+  const __vue_is_functional_template__ = false;
   /* style inject */
 
   /* style inject SSR */
 
   /* style inject shadow dom */
 
-  var __vue_component__ = /*#__PURE__*/normalizeComponent({
+  const __vue_component__ = /*#__PURE__*/normalizeComponent({
     render: __vue_render__,
     staticRenderFns: __vue_staticRenderFns__
   }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
@@ -239,22 +241,22 @@ var LazyComponent = (function () {
   // Import vue component
 
   // install function executed by Vue.use()
-  var install = function installLazyComponent(Vue) {
+  const install = function installLazyComponent(Vue) {
     if (install.installed) return;
     install.installed = true;
     Vue.component('LazyComponent', __vue_component__);
   };
 
   // Create module definition for Vue.use()
-  var plugin = {
-    install: install
+  const plugin = {
+    install
   };
 
   // To auto-install on non-es builds, when vue is found
   // eslint-disable-next-line no-redeclare
   /* global window, global */
   {
-    var GlobalVue = null;
+    let GlobalVue = null;
     if (typeof window !== 'undefined') {
       GlobalVue = window.Vue;
     } else if (typeof global !== 'undefined') {
@@ -275,4 +277,4 @@ var LazyComponent = (function () {
 
   return __vue_component__;
 
-})();
+}));

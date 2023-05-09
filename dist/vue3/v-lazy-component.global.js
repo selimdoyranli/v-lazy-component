@@ -1,5 +1,8 @@
-var LazyComponent = (function (vue) {
-  'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('vue')) :
+  typeof define === 'function' && define.amd ? define(['vue'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.LazyComponent = factory(global.Vue));
+})(this, (function (vue) { 'use strict';
 
   var script = vue.defineComponent({
     name: 'LazyComponent',
@@ -36,10 +39,12 @@ var LazyComponent = (function (vue) {
         default: 0
       }
     },
-    setup: function setup(props, _ref) {
-      var emit = _ref.emit;
-      var rootRef = vue.ref(null);
-      var state = vue.reactive({
+    setup(props, _ref) {
+      let {
+        emit
+      } = _ref;
+      const rootRef = vue.ref(null);
+      const state = vue.reactive({
         wrapperTag: props.wrapperTag,
         isIntersected: props.isIntersected,
         idle: props.idle,
@@ -47,48 +52,44 @@ var LazyComponent = (function (vue) {
         threshold: props.threshold,
         observer: null
       });
-      vue.watch(function () {
-        return props.isIntersected;
-      }, function (value) {
+      vue.watch(() => props.isIntersected, value => {
         if (value) {
           state.isIntersected = true;
         }
       });
-      vue.watch(function () {
-        return state.isIntersected;
-      }, function (value) {
+      vue.watch(() => state.isIntersected, value => {
         if (value) {
           emit('intersected', rootRef.value);
         }
       });
-      var isIntersectionObserverSupported = function isIntersectionObserverSupported() {
+      const isIntersectionObserverSupported = () => {
         return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype && 'isIntersecting' in window.IntersectionObserverEntry.prototype;
       };
-      var onIntersection = function onIntersection(entries) {
-        state.isIntersected = entries.some(function (entry) {
-          return entry.intersectionRatio > 0;
-        });
+      const onIntersection = entries => {
+        state.isIntersected = entries.some(entry => entry.intersectionRatio > 0);
         if (state.isIntersected) {
           unobserve();
         }
       };
-      var observe = function observe() {
-        var rootMargin = state.rootMargin,
-          threshold = state.threshold;
-        var config = {
+      const observe = () => {
+        const {
+          rootMargin,
+          threshold
+        } = state;
+        const config = {
           root: undefined,
-          rootMargin: rootMargin,
-          threshold: threshold
+          rootMargin,
+          threshold
         };
         state.observer = new IntersectionObserver(onIntersection, config);
         state.observer.observe(rootRef.value);
       };
-      var unobserve = function unobserve() {
+      const unobserve = () => {
         if (isIntersectionObserverSupported()) {
           state.observer.unobserve(rootRef.value);
         }
       };
-      vue.onMounted(function () {
+      vue.onMounted(() => {
         if (isIntersectionObserverSupported()) {
           if (!state.isIntersected && !state.idle) {
             observe();
@@ -100,14 +101,14 @@ var LazyComponent = (function (vue) {
           emit('intersected', rootRef.value);
         }
       });
-      vue.onBeforeUnmount(function () {
+      vue.onBeforeUnmount(() => {
         if (!state.isIntersected && !state.idle) {
           unobserve();
         }
       });
       return {
-        rootRef: rootRef,
-        state: state
+        rootRef,
+        state
       };
     }
   });
@@ -124,13 +125,11 @@ var LazyComponent = (function (vue) {
         minHeight: '1px'
       }
     }, {
-      default: vue.withCtx(function () {
-        return [_ctx.state.isIntersected ? vue.renderSlot(_ctx.$slots, "default", {
-          key: 0
-        }) : vue.createCommentVNode("", true), !_ctx.state.isIntersected ? vue.renderSlot(_ctx.$slots, "placeholder", {
-          key: 1
-        }) : vue.createCommentVNode("", true)];
-      }),
+      default: vue.withCtx(() => [_ctx.state.isIntersected ? vue.renderSlot(_ctx.$slots, "default", {
+        key: 0
+      }) : vue.createCommentVNode("", true), !_ctx.state.isIntersected ? vue.renderSlot(_ctx.$slots, "placeholder", {
+        key: 1
+      }) : vue.createCommentVNode("", true)]),
       _: 3
     }, 8, ["class"]);
   }
@@ -142,12 +141,12 @@ var LazyComponent = (function (vue) {
   // Default export is installable instance of component.
   // IIFE injects install function into component, allowing component
   // to be registered via Vue.use() as well as Vue.component(),
-  var entry = /*#__PURE__*/(function () {
+  var entry = /*#__PURE__*/(() => {
     // Assign InstallableComponent type
-    var installable = script;
+    const installable = script;
 
     // Attach install function executed by Vue.use()
-    installable.install = function (app) {
+    installable.install = app => {
       app.component('LazyComponent', installable);
     };
     return installable;
@@ -159,4 +158,4 @@ var LazyComponent = (function (vue) {
 
   return entry;
 
-})(Vue);
+}));
