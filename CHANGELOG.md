@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v3.0.8
+
+[compare changes](https://github.com/RadKod/v-lazy-component/compare/v3.0.7...v3.0.8)
+
+
+### 🏡 Chore
+
+  - Rebranding ([4d75a9e](https://github.com/RadKod/v-lazy-component/commit/4d75a9e))
+
+### ❤️  Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v3.0.7
 
 [compare changes](https://github.com/RadKod/v-lazy-component/compare/v3.0.6...v3.0.7)
