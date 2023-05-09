@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v3.0.6
+
+[compare changes](https://github.com/RadKod/v-lazy-component/compare/v3.0.5...v3.0.6)
+
+
+### 💅 Refactors
+
+  - **build:** Refactor build ([787c607](https://github.com/RadKod/v-lazy-component/commit/787c607))
+
+### ❤️  Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v3.0.5
 
 [compare changes](https://github.com/RadKod/v-lazy-component/compare/v3.0.4...v3.0.5)
