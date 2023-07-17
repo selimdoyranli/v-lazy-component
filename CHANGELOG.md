@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v3.0.9
+
+[compare changes](https://github.com/selimdoyranli/v-lazy-component/compare/4155b1f...v3.0.9)
+
+
+### 🏡 Chore
+
+  - Rebrand ([6c7889b](https://github.com/selimdoyranli/v-lazy-component/commit/6c7889b))
+
+### ❤️  Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v3.0.8
 
 [compare changes](https://github.com/selimdoyranli/v-lazy-component/compare/v3.0.7...v3.0.8)
