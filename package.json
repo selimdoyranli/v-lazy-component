@@ -16,7 +16,7 @@
   "homepage": "https://v-lazy-component.vercel.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/RadKod/v-lazy-component"
+    "url": "https://github.com/selimdoyranli/v-lazy-component"
   },
   "main": "dist/vue3/index.js",
   "module": "dist/vue3/v-lazy-component.mjs",

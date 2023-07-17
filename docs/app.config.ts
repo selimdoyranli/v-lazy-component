@@ -4,8 +4,8 @@ export default defineAppConfig({
     description: 'Vue component render when visible 👁️⚡️',
     image: '/media/logo.png',
     socials: {
-      twitter: 'startupekibi',
-      github: 'RadKod/v-lazy-component'
+      twitter: 'selimdoyranli',
+      github: 'selimdoyranli/v-lazy-component'
     },
     aside: {
       level: 0,
@@ -17,8 +17,8 @@ export default defineAppConfig({
     footer: {
       iconLinks: [
         {
-          href: 'https://buymeacoffee.com/RadKod',
-          icon: 'simple-icons:buymeacoffee'
+          href: 'https://github.com/sponsors/selimdoyranli',
+          icon: 'simple-icons:githubsponsors'
         }
       ]
     }
